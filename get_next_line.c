@@ -6,11 +6,13 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:21:31 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/04/17 15:22:27 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/04/18 19:55:18 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 char	*get_next_line(int fd)
-{}
+{
+	
+}
