@@ -6,11 +6,12 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:21:31 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/05/07 13:19:19 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:57:25 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
@@ -39,6 +40,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	while (s[i] && s[i] != (unsigned char)c)
 		i++;
@@ -47,28 +50,81 @@ char	*ft_strchr(const char *s, int c)
 	return (&((char *)s)[i]);
 }
 
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*strm;
+	char	*str;
+
+	if (!s1 || !s2)
+		return (NULL);
+	strm = (char *)ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char *));
+	if (!strm)
+		return (NULL);
+	str = strm;
+	while (*s1)
+	{
+		*str = *s1;
+		str++;
+		s1++;
+	}
+	while (*s2)
+	{
+		*str = *s2;
+		str++;
+		s2++;
+	}
+	return (strm);
+}
+
+void	ft_free_buffer(char **fbuffer)
+{
+	free(*fbuffer);
+	*fbuffer = NULL;
+}
+
+/* ACTUAL FILE */
+
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
-	char		*input;
+	static char	*fbuffer;
+	char		*buffer;
 	int			bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	input = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (!input)
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!buffer)
 		return (NULL);
 	bytes_read = 1;
-	while (!(ft_strchr(input, '\n')) && bytes_read)
+	printf("1\n");
+	while (!ft_strchr(fbuffer, '\n') && bytes_read)
 	{
-		bytes_read = read(fd, input, BUFFER_SIZE);
+		printf("2\n");
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1 || bytes_read <= 0)
-				return (free(input), NULL);
+				return (ft_free_buffer(&fbuffer), free(buffer), NULL);
+		printf("3\n");
+		fbuffer = ft_strjoin(fbuffer, buffer);
+		if (!fbuffer)
+			return (NULL);
+		printf("4\n");
+		free(buffer);
 	}
-	return (input);
+	return (buffer);
 }
 
-#include <stdio.h>
+/* MAIN FUNCTION */
+
 #include <fcntl.h>
 
 int	main(void)
