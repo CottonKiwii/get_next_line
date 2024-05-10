@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:22:40 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/05/08 13:25:36 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:22:44 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 void	free_fb(char **buffer);
 char	*get_next_line(int fd);
+char	*ft_get_line(char *fbuff);
+char	*ft_next_line(char *buffer, char *fbuff);
 
 /* get_next_line_utils */
 
@@ -31,5 +33,6 @@ void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
 
 #endif
