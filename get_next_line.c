@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:21:31 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/05/08 18:16:55 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:18:38 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,16 @@ void	free_fb(char **fbuff)
 	*fbuff = NULL;
 }
 
-/* ACTUAL FILE */
 char	*ft_get_line(char *fbuff)
 {
 	char	*line;
-
+	char	*newline;
+	char	*temp;
+	
+	if (!fbuff)
+		return (NULL);
+	newline = ft_strchr(fbuff, '\n');
+	line = ft_substr(fbuff, fbuff[0], (size_t)newline);
 	return (line);
 }
 
