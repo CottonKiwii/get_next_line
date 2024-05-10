@@ -6,7 +6,7 @@
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:27:22 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/05/08 14:29:37 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:10:23 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,30 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	return (str);
+}
+
+char	*ft_substr(const char *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	i;
+	size_t	slen;
+
+	if (!s)
+		return (NULL);
+	slen = ft_strlen(s);
+	if (start >= slen || !len)
+		return (ft_calloc(0, sizeof(char)));
+	if (len > slen - start)
+		sub = (char *)ft_calloc(slen - start + 1, sizeof(char));
+	else
+		sub = (char *)ft_calloc(len + 1, sizeof(char));
+	if (!sub)
+		return (NULL);
+	i = 0;
+	while (s[start + i] && i < len)
+	{
+		sub[i] = s[start + i];
+		i++;
+	}
+	return (sub);
 }
