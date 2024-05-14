@@ -1,0 +1,49 @@
+------
+get_next_line overview:
+------
+
+fd - the file descriptor to read from
+
+returns - NULL if error, read line if it worked
+
+function - return line read by fd, followed by a \n, unless it's the last line
+
+header - needs to have at least get_next_line();
+
+helper - all helper functions go here
+
+------
+born2beroot overview:
+------
+
+[X] Hostname: jwolfram42
+
+[X] Must create at least 2 encrypted partitions with LVM
+
+[] Must have a user with jwolfram as username and belong to user42 and sudo groups
+
+[] Must install sudo
+
+[] Each action with sudo must be logged in a logfile in /var/log/sudo/
+
+[] TTY mode must be enabled
+
+[] paths used by sudo must be restricted: 
+	- /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+
+[] Implement strong password policy:
+	- password expires every 30 days
+	- min days before password modification are 2
+	- warning message 7 days befire password expiration
+	- password must be 10 characters long
+	- must contain at least 1 uppercase, 1 lowercase and 1 number
+	- no more than 3 consecutive characters
+	- shouldn't include username
+	- (not for root) password must have at least 7 characters not from former password
+	- 3 attempts for incorrect password using sudo
+
+[] Configure OS with UFW (Firewall), 4242 only open port
+
+[] SSH service will run on port 4242 (not connectible as root)
+
+[] create bash script monitoring.sh --> check subject

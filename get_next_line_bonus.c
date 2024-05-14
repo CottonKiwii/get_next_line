@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:21:31 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/05/14 18:23:01 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:31:57 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 void	free_fb(char **fbuff)
 {
@@ -60,7 +59,7 @@ char	*ft_next_line(char *buffer, char *fbuff)
 
 char	*get_next_line(int fd)
 {
-	static char	*fbuff;
+	static char	*fbuff[1024];
 	char		*buffer;
 	int			bytes_read;
 
@@ -70,17 +69,17 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return (NULL);
 	bytes_read = 1;
-	while (!ft_strchr(fbuff, '\n') && bytes_read)
+	while (!ft_strchr(fbuff[fd], '\n') && bytes_read)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-				return (free_fb(&fbuff), free(buffer), NULL);
+				return (free_fb(&fbuff[fd]), free(buffer), NULL);
 		buffer[bytes_read] = '\0';
-		fbuff = ft_strjoin(fbuff, buffer);
+		fbuff[fd] = ft_strjoin(fbuff[fd], buffer);
 	}
 	free(buffer);
-	buffer = ft_get_line(fbuff);
-	fbuff = ft_next_line(buffer, fbuff);
+	buffer = ft_get_line(fbuff[fd]);
+	fbuff[fd] = ft_next_line(buffer, fbuff[fd]);
 	return (buffer);
 }
 
