@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwolfram <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: CottonKiwii <julia.wolfram@gmx.at>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:21:31 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/05/14 18:31:57 by jwolfram         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:14:06 by CottonKiwii      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ char	*get_next_line(int fd)
 		return (NULL);
 	buffer = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
-		return (NULL);
+		return (free_fb(&fbuff[fd]), NULL);
 	bytes_read = 1;
 	while (!ft_strchr(fbuff[fd], '\n') && bytes_read)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-				return (free_fb(&fbuff[fd]), free(buffer), NULL);
+			return (free_fb(&fbuff[fd]), free(buffer), NULL);
 		buffer[bytes_read] = '\0';
 		fbuff[fd] = ft_strjoin(fbuff[fd], buffer);
 	}
@@ -81,31 +81,4 @@ char	*get_next_line(int fd)
 	buffer = ft_get_line(fbuff[fd]);
 	fbuff[fd] = ft_next_line(buffer, fbuff[fd]);
 	return (buffer);
-}
-
-/* MAIN FUNCTION */
-
-#include <fcntl.h>
-
-int	main(void)
-{
-	int		fd;
-	char	*line;
-
-	fd = open("./overview.txt", O_RDONLY);
-	if (fd == -1)
-		return (1);
-	line = get_next_line(fd);
-	int i = 0;
-	while (line)
-	{
-		printf("%d %s\n", i, line);
-		free(line);
-		line = get_next_line(fd);
-		i++;
-	}
-	printf("%d %s\n", i, line);
-	free(line);
-	close(fd);
-	return (0);	
 }
