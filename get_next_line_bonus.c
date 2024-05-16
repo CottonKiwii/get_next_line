@@ -6,11 +6,11 @@
 /*   By: CottonKiwii <julia.wolfram@gmx.at>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:21:31 by jwolfram          #+#    #+#             */
-/*   Updated: 2024/05/15 16:14:06 by CottonKiwii      ###   ########.fr       */
+/*   Updated: 2024/05/16 17:04:27 by jwolfram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	free_fb(char **fbuff)
 {
